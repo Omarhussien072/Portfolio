@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-border: var(--border);
+  --color-sidebar: var(--sidebar);
+  --color-popover: var(--popover);
+  --color-card: var(--card);
+  --color-success-log: var(--success-log);
+  --color-error-log: var(--error-log);
+  --color-warning-log: var(--warning-log);
+  --color-help-log: var(--help-log);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary-background: var(--secondary-background);
+  --color-cyan: var(--accent);
+  --color-purple: var(--chart-3);
+  --color-orange: var(--chart-4);
+  --color-card-foreground: var(--card-foreground);
+  --color-foreground: var(--foreground);
+  --color-muted : var(--muted);
+  --animate-custom-pulse: custom-pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-custom-translate-X: custom-translateX 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-fade-in-up: fade-in-up 0.5s cubic-bezier(.32,.32,.86,.58) forwards;
+  --animate-fade-in: fade-in 0.3s cubic-bezier(.32,.32,.7,.72) forwards;
+  --animate-logs-translate-up: logs-translate-up 0.3s cubic-bezier(.32,.32,.7,.72) forwards;
+
+  @keyframes logs-translate-up{
+    0%{
+      transform: translateY(10rem)
+    },
+    50% {
+      transform: translateY(5rem)
+    }
+    100% {
+      transform: translateY(0)
+    }
+  }
+  
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    },
+    50% {
+      opacity: 0.5;
+    },
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-in-up {
+    0%{
+      opacity: 0;
+      transform: translateY(0.625rem)
+    },
+    50%{
+      opacity: 0.5;
+      transform: translateY(0.312.5rem)
+    },
+    100% {
+      opacity: 1;
+      transform: translateY(0)
+    }
+  }
+
+
+  @keyframes custom-pulse {
+    0%, 100%{
+      opacity: 1;
+      transform: scale(1.03);
+    }
+    50% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes custom-translateX {
+    0%, 100%{
+      transform: translateX(1px)
+    }
+    50%{
+      transform: translateX(0)
+    }
+  }
+
+}
+
+  ::-webkit-scrollbar{
+    width: 0.5rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb{
+    background: #2a2a2a;
+    border-radius: 0.7rem;
+  }
+
+  ::-webkit-scrollbar-thumb:hover{
+    background: var(--primary); 
+  }
+
+  
+
+
+
+
+@layer base {
+  :root {
+    --background: #080808;
+    --secondary-background: #0A0A0A;
+    --foreground: #ededed;
+    --font-size: 14px;
+    --card: #0f0f0f;
+    --card-foreground: #ebebeb;
+    --popover: #0d0d0d;
+    --popover-foreground: #d4d4d4;
+    --primary: #00e676;
+    --primary-foreground: #080808;
+    --secondary: #141414;
+    --secondary-foreground: #d4d4d4;
+    --muted: #161616;
+    --muted-foreground: #888888;
+    --accent: #02D3F3;
+    --accent-foreground: #080808;
+    --destructive: #ff4444;
+    --destructive-foreground: #ffffff;
+    --border: rgba(255, 255, 255, 0.07);
+    --input: transparent;
+    --input-background: #141414;
+    --switch-background: #2a2a2a;
+    --font-weight-medium: 500;
+    --font-weight-normal: 400;
+    --ring: rgba(0, 230, 118, 0.5);
+    --chart-1: #00e676;
+    --chart-2: #00b4d8;
+    --chart-3: #a78bfa;
+    --chart-4: #fb923c;
+    --chart-5: #f43f5e;
+    --sidebar: #0d0d0d;
+    --sidebar-foreground: #d4d4d4;
+    --sidebar-primary: #00e676;
+    --sidebar-primary-foreground: #080808;
+    --sidebar-accent: #141414;
+    --sidebar-accent-foreground: #d4d4d4;
+    --sidebar-border: rgba(255, 255, 255, 0.07);
+    --sidebar-ring: rgba(0, 230, 118, 0.5);
+    --success-log: #24A850 ;
+    --error-log: #cb0c0c;
+    --warning-log: #f4b218;
+    --help-log: #0ec0e4;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-fira-code), monospace; /* نستخدم متغير الخط الذي عرفناه في layout.tsx */
+}
