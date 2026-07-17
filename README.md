@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🖥️ Interactive Terminal Portfolio
 
-## Getting Started
+A sleek, retro-modern, terminal-inspired portfolio website designed for developers. Built using **Next.js 15+ (App Router)**, **React 19**, **TypeScript**, and **Tailwind CSS v4**.
 
-First, run the development server:
+It provides an interactive command-line interface (CLI) in the browser, allowing visitors to navigate modules, trigger visual layout states, and check system execution logs.
 
+---
+
+<div align="center">
+
+[![Next.js](https://img.shields.io/badge/Next.js-16.x-black?style=for-the-badge&logo=nextdotjs)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.x-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4.0-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![EmailJS](https://img.shields.io/badge/EmailJS-Integrate-orange?style=for-the-badge&logo=email)](https://www.emailjs.com/)
+
+</div>
+
+---
+
+## ✨ Key Features
+
+- **🐚 Interactive Shell Terminal:** 
+  - Complete with dynamic auto-completion suggestions.
+  - History traversal using `ArrowUp` and `ArrowDown` keys.
+  - Commands support modules like `home`, `about`, `projects`, and `contact`.
+- **📂 Dynamic Folder Traversal:** Navigating modules updates the terminal breadcrumbs (`~/portfolio/projects`, etc.) and scrolls smoothly to the active panel section.
+- **📜 Live System Logs Panel:** A right-hand debug panel that prints pseudo-system events such as `[OK]`, `[warn]`, and `[error]` corresponding to CLI actions.
+- **✉️ Interactive Contact Form:** Built-in contact form powered by **EmailJS** for instant email messaging and dynamic delivery feedback.
+- **🎨 Glassmorphic Slate Aesthetics:** Custom theme styling utilizing Tailwind's opacity borders and smooth hover glows.
+
+---
+
+## 🛠️ CLI Commands Available
+
+| Command | Action |
+| :--- | :--- |
+| `home` | Renders the primary bio landing section |
+| `about` | Renders technical skills and work details |
+| `projects` | Displays the listing of portfolio works |
+| `contact` | Opens the interactive contact form |
+| `cd <module>` | Focuses & scrolls view directly to an active module |
+| `clear` | Clears command logs and unloads all modules |
+| `help` | Outputs terminal command guidance instructions |
+
+---
+
+## 🚀 Getting Started
+
+Follow these steps to run the portfolio locally on your computer:
+
+### 1. Clone the Project
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Omarhusien072/Portfolio.git
+cd Portfolio
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Setup Environment Variables
+Create a file named `.env.local` in the root directory and add your **EmailJS** credentials:
+```env
+NEXT_PUBLIC_EMAIL_SERVICE_ID=your_emailjs_service_id
+NEXT_PUBLIC_EMAIL_TEMPLATE_ID=your_emailjs_template_id
+NEXT_PUBLIC_EMAIL_KEY=your_emailjs_public_key
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Run Development Server
+```bash
+npm run dev
+```
 
-## Learn More
+Open [http://localhost:3000](http://localhost:3000) in your browser to interact with the project!
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ⚙️ Customization Guide
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+All data displayed on the portfolio is centralized inside [SharedData.tsx](file:///C:/Users/Omar/Documents/GitHub/Portfolio/components/SharedData.tsx). To customize the website for your own profile:
 
-## Deploy on Vercel
+1. **Edit Social Connections:** Locate `socialLinks` and replace URLs with your GitHub, LinkedIn, X, and Email.
+2. **Update Skills:** Modify the `techSkills` string array to list your custom stack.
+3. **Change Achievements:** Modify `achievements` to update total experience or project counts.
+4. **Update Projects:** Modify `projectData` array using the format:
+   ```typescript
+   {
+       projectId: crypto.randomUUID(),
+       projectTitle: "Your Project Name",
+       projectDescription: "Detailed summary of your project.",
+       projectState: "completed" | "in development" | "alpha",
+       projectTechs: ['React', 'Next.js', 'Tailwind'],
+       projectLiveLink: "https://github.com/your-repo",
+       borderClass: "hover:border-amber-400/25",
+       stateClass: "border border-amber-400/50 text-amber-400",
+   }
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📂 Project Structure
+
+```
+Portfolio/
+├── app/                      # Next.js App Router (Layout & main Page view)
+├── components/               # React functional modules
+│   ├── About.tsx             # Skill matrices and profile blocks
+│   ├── Contact.tsx           # EmailJS interface & input fields
+│   ├── Home.tsx              # Overview landing module
+│   ├── Projects.tsx          # Maps projects lists to cards
+│   ├── SharedData.tsx        # Centralized static configuration & states
+│   ├── Terminal.tsx          # Shell command input & key handler
+│   └── SystemLogs.tsx        # Shell log feed output
+├── public/                   # Static icons and assets
+├── tsconfig.json             # TypeScript configuration
+├── next.config.ts            # Next.js configurations
+└── tailwind.config.ts        # Tailwind stylesheet rules
+```
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License. See `LICENSE` for details.
