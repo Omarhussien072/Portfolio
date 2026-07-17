@@ -2,7 +2,7 @@
   "name": "portfolio",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Omarhusien072.github.io/Portfolio",
+  "homepage": "https://Omarhussien072.github.io/Portfolio",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

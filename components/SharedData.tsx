@@ -32,8 +32,8 @@ interface socialLink{
 }
 
 export const socialLinks: socialLink[]= [
-  {id: crypto.randomUUID(),type: "github", Icon: githubIcon, link: "https://github.com/Omarhusien072"},
-  {id: crypto.randomUUID(),type: "linkedIn", Icon: linkedInIcon, link: "https://www.linkedin.com/in/omar-husien-q421"},
+  {id: crypto.randomUUID(),type: "github", Icon: githubIcon, link: "https://github.com/Omarhussien072"},
+  {id: crypto.randomUUID(),type: "linkedIn", Icon: linkedInIcon, link: "https://www.linkedin.com/in/omar-hussien-q421"},
   {id: crypto.randomUUID(),type: "twitter", Icon: XIcon, link: "https://www.x.com/omarhussien072"},
   {id: crypto.randomUUID(),type: "email", Icon: mailIcon, link: "omarhusien072@gmail.com"},
 ]
