@@ -91,7 +91,7 @@ export const projectData:projectDataType[] = [
     projectId: crypto.randomUUID(),
     projectTitle: "IB64C",
     projectDescription: "A multithreaded desktop application built with PySide6/Qt6 that recursively scans directories to convert images into base64 strings, exporting them into formatted, importable Python modules.",
-    projectState: "completed",
+    projectState: "in development",
     projectTechs: ['Python', 'PySide6 (Qt6)', 'Multi-threading', 'Base64'],
     projectLiveLink: "https://github.com/Omarhusien072/IB64C.git",
     borderClass: "hover:border-amber-400/25",
