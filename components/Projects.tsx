@@ -8,7 +8,7 @@ import SectionPanel from "./SectionPanel"
 function Projects(){
     return (
         <SectionPanel panelTitle="//projects" titleColor="text-violet-400" id="projects">
-            <div className="flex flex-col gap-4 max-h-140 overflow-y-auto">
+            <div className="flex flex-col gap-4 max-h-150 overflow-y-auto">
                 {projectData.map((project,index) => {
                     return <ProjectCard key={project.projectId} index={index + 1} projectTitle={project.projectTitle}
                             projectDescription={project.projectDescription} projectState={project.projectState} 
