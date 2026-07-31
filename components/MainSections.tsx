@@ -12,8 +12,16 @@ interface MainSectionsProps {
 }
 
 function MainSections({currentSections}: MainSectionsProps){
-    const homeData = {id: crypto.randomUUID(), name: "omar hussien", jobTitle: "Junior Front-End Developer", jobDescription: "I engineer fast, scalable web applications and desktop tools. Bridging the gap between robust system architecture and clean user interfaces."}
-    const aboutData = {id: crypto.randomUUID(), bio: "I am a 4th-year Information Technology student, specializing in Software Engineering, and a Junior Front-End Developer based in Egypt. I focus on architecting scalable, performance-driven web applications and practical desktop utilities. My engineering approach bridges the gap between complex backend logic and seamless frontend experiences. I prioritize clean code principles, efficient state management, and building durable software solutions over relying on fleeting framework trends. With a strong foundation in system architecture and a meticulous eye for UI details, I thrive in environments that demand technical rigor, robust problem-solving, and continuous optimization."}
+    const homeData = {
+        id: crypto.randomUUID(),
+        name: "omar hussien",
+        jobTitle: "Junior Front-End Developer",
+        jobDescription: "Frontend Developer building lightning-fast, responsive web applications powered by REST APIs. I focus on crafting seamless, zero-friction user experiences where every interaction feels natural and enjoyable."
+    }
+    const aboutData = {
+        id: crypto.randomUUID(),
+        bio: "Recent Information & Communication Technology (ICT) graduate specializing in Software Engineering, based in Egypt. I build high-performance, fully responsive web applications that consume REST APIs and leverage browser storage and caching for standalone client efficiency. My development philosophy centers on speed, adaptability, and detail-oriented UI design—ensuring users enjoy an intuitive, hassle-free experience without wasting time. Constantly keeping pace with modern web standards, I focus on practical problem-solving, clean code architecture, and delivering polished, production-ready software."
+    }
     
     const sectionRegistery: Record<string, React.ReactNode> = {
         home: <Home name={homeData.name} jobTitle={homeData.jobTitle} jobDescription={homeData.jobDescription}/>,
