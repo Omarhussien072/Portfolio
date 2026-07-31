@@ -7,6 +7,7 @@ export const utilityCommands = [
 ]
 
 export const sectionsCommands = [
+  { id: crypto.randomUUID(), command: "all", description: 'all sections'},
   { id: crypto.randomUUID(), command: "home", description: "main overview" },
   { id: crypto.randomUUID(), command: "about", description: "my bio" },
   { id: crypto.randomUUID(), command: "projects", description: "my work" },
@@ -51,7 +52,7 @@ export const aboutCards:aboutCard[]= [
 ]
 
 export const techSkills: string[] = [
-  'html', 'css', 'vanilla js', 'angular', 'react', 'typeScript', 'node.js', 'tailwind', 'aI enginner', 'python'
+  'html', 'css', 'js', 'react', 'tailwind', 'typeScript', 'node.js', 'python'
 ]
 
 interface projectDataType{

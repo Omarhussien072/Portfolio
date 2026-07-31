@@ -20,15 +20,40 @@ function Home() {
     return SectionsOrder.indexOf(a) - SectionsOrder.indexOf(b);
   });
 
-  const onCommandExecute = (command: string) => {
+  const onCommandExecute = (command: string): boolean => {
     const cmd = command.trim().toLowerCase();
-    if(!(enteredCommands.includes(cmd))){
-      enteredCommands.push(cmd)
+    if (!(enteredCommands.includes(cmd))) {
+      enteredCommands.push(cmd);
     }
-    console.log(enteredCommands)
     if (
       sectionsCommands.some((sectionCommand) => sectionCommand.command === cmd)
     ) {
+      if(cmd === 'all'){
+        if(currentSections.length === 4){
+          setLogs((prevLogs) => [...prevLogs,{ id: crypto.randomUUID(), type: "info", text: `${command}` },])
+          setTimeout(() => {
+            setLogs((prevLogs) => [...prevLogs, {id: crypto.randomUUID(),type: "warning",text: `sys: [warn] module //${command} is already active.`},]);
+          }, 200);
+          return true
+        }
+
+        if(currentSections.length > 0 && currentSections.length < 5){
+          const missingSections = SectionsOrder.filter((section) => !currentSections.includes(section))
+          setCurrentSections((prevSections) => [...prevSections, ...missingSections])
+          setLogs((prevLogs) => [...prevLogs,{ id: crypto.randomUUID(), type: "info", text: `${command}`},])
+          setTimeout(() => {
+            setLogs((prevLogs) => [...prevLogs,{ id: crypto.randomUUID(), type: "info", text: 'core: [OK] rest of the modules are rendered successfully.'},])
+          }, 200);
+          return true
+        }
+        setCurrentSections(['home', 'about', 'projects', 'contact'])
+        setDirectoryVal(`${defaultDirectory}/`);
+        setLogs((prevLogs) => [...prevLogs,{ id: crypto.randomUUID(), type: "info", text: `${command}` },])
+        setTimeout(() => {
+          setLogs((prevLogs) => [...prevLogs,{ id: crypto.randomUUID(), type: "info", text: 'core: [OK] all modules are rendered successfully.' },])
+        }, 200);
+        return true
+      }
       if (!currentSections.includes(cmd)) {
         setCurrentSections((prevSections) => [...prevSections, command]);
 
@@ -39,14 +64,12 @@ function Home() {
 
         setDirectoryVal(`${defaultDirectory}/${command}`);
 
-        // تعديل النص ليكون بسيط ومريح للعين
         setLogs((prevLogs) => [
           ...prevLogs,
           { id: crypto.randomUUID(), type: "info", text: `${command}` },
         ]);
 
         setTimeout(() => {
-          // تعديل رسالة النجاح
           setLogs((prevLogs) => [
             ...prevLogs,
             {
@@ -56,9 +79,10 @@ function Home() {
             },
           ]);
         }, 200);
-        return;
+        return true;
       } else {
-        // تعديل رسالة التحذير
+        const sectionRef = document.getElementById(cmd);
+        sectionRef?.scrollIntoView({ behavior: "smooth", block: "start" });
         setLogs((prevLogs) => [
           ...prevLogs,
           {
@@ -67,7 +91,7 @@ function Home() {
             text: `sys: [warn] module //${command} is already active.`,
           },
         ]);
-        return;
+        return true;
       }
     } else if (
       utilityCommands.some(
@@ -77,26 +101,24 @@ function Home() {
       setCurrentSections([]);
       setLogs([]);
       setDirectoryVal(defaultDirectory);
-      return;
+      return true;
     } else if (
       utilityCommands.some(
         (utilityCommand) => utilityCommand.command == cmd && cmd == "help",
       )
     ) {
-      // تعديل طباعة الأمر
       setLogs((prevLogs) => [
         ...prevLogs,
         { id: crypto.randomUUID(), type: "info", text: `${command}` },
       ]);
 
       setTimeout(() => {
-        // تنسيق رسائل المساعدة لتكون زي لينكس
         setLogs((prevLogs) => [
           ...prevLogs,
           {
             id: crypto.randomUUID(),
             type: "help",
-            text: `sh: available modules: ${sectionsCommands.map((sectionCommand) => sectionCommand.command).join(", ")}`,
+            text: `sh: available modules : ${sectionsCommands.map((sectionCommand) => sectionCommand.command).join(", ")}`,
           },
         ]);
         setLogs((prevLogs) => [
@@ -104,7 +126,7 @@ function Home() {
           {
             id: crypto.randomUUID(),
             type: "help",
-            text: "sh: navigation: cd module_name",
+            text: "sh: navigation: cd <module_name>",
           },
         ]);
         setLogs((prevLogs) => [
@@ -116,13 +138,12 @@ function Home() {
           },
         ]);
       }, 300);
-      return;
+      return false;
     } else if (cmd.startsWith("cd ")) {
       const targetSection = cmd.split(" ")[1];
       const sectionRef = document.getElementById(targetSection);
 
       if (!targetSection || !orderedSections.includes(targetSection)) {
-        // تعديل رسائل الخطأ والتنبيه
         setLogs((prev) => [
           ...prev,
           {
@@ -141,21 +162,18 @@ function Home() {
             },
           ]);
         }, 200);
-        return;
+        return false;
       }
 
       sectionRef?.scrollIntoView({ behavior: "smooth", block: "start" });
-      console.log(sectionRef);
       setDirectoryVal(`${defaultDirectory}/${targetSection}`);
 
-      // تعديل طباعة الأمر
       setLogs((prev) => [
         ...prev,
         { id: crypto.randomUUID(), type: "info", text: `${command}` },
       ]);
 
       setTimeout(() => {
-        // تعديل رسالة النجاح للـ CD
         setLogs((prev) => [
           ...prev,
           {
@@ -165,33 +183,42 @@ function Home() {
           },
         ]);
       }, 200);
-      return;
+      return true;
     } else if (cmd === "cd") {
-      // ضفتلك طباعة الأمر قبل رسالة الخطأ عشان الـ History يكون سليم
-      const sectionRef = document.getElementById('home')
-      setLogs((prev) => [
-        ...prev,
-        { id: crypto.randomUUID(), type: "info", text: `${command}` },
-      ]);
-      
-      sectionRef?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      })
-      setTimeout(() => {
-        // تعديل رسالة النجاح للـ CD
+      const sectionRef = document.getElementById('home');
+      if (orderedSections.includes('home')) {
+        sectionRef?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
         setLogs((prev) => [
           ...prev,
+          { id: crypto.randomUUID(), type: "info", text: `${command}` },
+        ]);
+        setTimeout(() => {
+          setLogs((prev) => [
+            ...prev,
+            {
+              id: crypto.randomUUID(),
+              type: "success",
+              text: `fs: returned to root directory (~/home)`,
+            },
+          ]);
+        }, 200);
+        return true;
+      } else {
+        setLogs((prev) => [
+          ...prev,
+          { id: crypto.randomUUID(), type: "info", text: `${command}` },
           {
             id: crypto.randomUUID(),
-            type: "success",
-            text: `fs: returned to root directory (~/home)`,
+            type: "error",
+            text: `cd: home module is not loaded yet`,
           },
         ]);
-      }, 200);
-      return;
+        return false;
+      }
     } else {
-      // ضفتلك طباعة الأمر قبل رسالة الخطأ عشان الـ History يكون سليم
       setLogs((prevLogs) => [
         ...prevLogs,
         { id: crypto.randomUUID(), type: "info", text: `${command}` },
@@ -201,7 +228,7 @@ function Home() {
           text: `bash: ${cmd}: command not found`,
         },
       ]);
-      return;
+      return false;
     }
   };
 
