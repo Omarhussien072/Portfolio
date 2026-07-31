@@ -7,7 +7,7 @@ import {
   sectionsCommands,
   SectionsOrder,
   utilityCommands,
-  enteredCommands,
+  enteredCommands
 } from "@/components/SharedData";
 import { useState } from "react";
 
@@ -15,44 +15,74 @@ function Home() {
   const defaultDirectory = "~/portfolio";
   const [directoryVal, setDirectoryVal] = useState<string>(defaultDirectory);
   const [currentSections, setCurrentSections] = useState<string[]>([]);
-  const [logs, setLogs] = useState<LogEntry[]>([])
+  const [logs, setLogs] = useState<LogEntry[]>([]);
   const orderedSections = [...currentSections].sort((a, b) => {
     return SectionsOrder.indexOf(a) - SectionsOrder.indexOf(b);
   });
 
   const onCommandExecute = (command: string): boolean => {
     const cmd = command.trim().toLowerCase();
-    if (!(enteredCommands.includes(cmd))) {
+    if (!enteredCommands.includes(cmd)) {
       enteredCommands.push(cmd);
     }
     if (
       sectionsCommands.some((sectionCommand) => sectionCommand.command === cmd)
     ) {
-      if(cmd === 'all'){
-        if(currentSections.length === 4){
-          setLogs((prevLogs) => [...prevLogs,{ id: crypto.randomUUID(), type: "info", text: `${command}` },])
+      if (cmd === 'all') {
+        if (currentSections.length === 4) {
+          setLogs((prevLogs) => [
+            ...prevLogs,
+            { id: crypto.randomUUID(), type: "info", text: `${command}` }
+          ]);
           setTimeout(() => {
-            setLogs((prevLogs) => [...prevLogs, {id: crypto.randomUUID(),type: "warning",text: `sys: [warn] module //${command} is already active.`},]);
+            setLogs((prevLogs) => [
+              ...prevLogs,
+              {
+                id: crypto.randomUUID(),
+                type: "warning",
+                text: `sys: [warn] module //${command} is already active.`
+              }
+            ]);
           }, 200);
-          return true
+          return true;
         }
 
-        if(currentSections.length > 0 && currentSections.length < 5){
-          const missingSections = SectionsOrder.filter((section) => !currentSections.includes(section))
-          setCurrentSections((prevSections) => [...prevSections, ...missingSections])
-          setLogs((prevLogs) => [...prevLogs,{ id: crypto.randomUUID(), type: "info", text: `${command}`},])
+        if (currentSections.length > 0 && currentSections.length < 5) {
+          const missingSections = SectionsOrder.filter((section) => !currentSections.includes(section));
+          setCurrentSections((prevSections) => [...prevSections, ...missingSections]);
+          setLogs((prevLogs) => [
+            ...prevLogs,
+            { id: crypto.randomUUID(), type: "info", text: `${command}` }
+          ]);
           setTimeout(() => {
-            setLogs((prevLogs) => [...prevLogs,{ id: crypto.randomUUID(), type: "info", text: 'core: [OK] rest of the modules are rendered successfully.'},])
+            setLogs((prevLogs) => [
+              ...prevLogs,
+              {
+                id: crypto.randomUUID(),
+                type: "info",
+                text: 'core: [OK] rest of the modules are rendered successfully.'
+              }
+            ]);
           }, 200);
-          return true
+          return true;
         }
-        setCurrentSections(['home', 'about', 'projects', 'contact'])
+        setCurrentSections(['home', 'about', 'projects', 'contact']);
         setDirectoryVal(`${defaultDirectory}/`);
-        setLogs((prevLogs) => [...prevLogs,{ id: crypto.randomUUID(), type: "info", text: `${command}` },])
+        setLogs((prevLogs) => [
+          ...prevLogs,
+          { id: crypto.randomUUID(), type: "info", text: `${command}` }
+        ]);
         setTimeout(() => {
-          setLogs((prevLogs) => [...prevLogs,{ id: crypto.randomUUID(), type: "info", text: 'core: [OK] all modules are rendered successfully.' },])
+          setLogs((prevLogs) => [
+            ...prevLogs,
+            {
+              id: crypto.randomUUID(),
+              type: "info",
+              text: 'core: [OK] all modules are rendered successfully.'
+            }
+          ]);
         }, 200);
-        return true
+        return true;
       }
       if (!currentSections.includes(cmd)) {
         setCurrentSections((prevSections) => [...prevSections, command]);
@@ -66,7 +96,7 @@ function Home() {
 
         setLogs((prevLogs) => [
           ...prevLogs,
-          { id: crypto.randomUUID(), type: "info", text: `${command}` },
+          { id: crypto.randomUUID(), type: "info", text: `${command}` }
         ]);
 
         setTimeout(() => {
@@ -75,8 +105,8 @@ function Home() {
             {
               id: crypto.randomUUID(),
               type: "success",
-              text: `core: [OK] //${command} rendered successfully.`,
-            },
+              text: `core: [OK] //${command} rendered successfully.`
+            }
           ]);
         }, 200);
         return true;
@@ -88,14 +118,14 @@ function Home() {
           {
             id: crypto.randomUUID(),
             type: "warning",
-            text: `sys: [warn] module //${command} is already active.`,
-          },
+            text: `sys: [warn] module //${command} is already active.`
+          }
         ]);
         return true;
       }
     } else if (
       utilityCommands.some(
-        (utilityCommand) => utilityCommand.command == cmd && cmd == "clear",
+        (utilityCommand) => utilityCommand.command === cmd && cmd === "clear"
       )
     ) {
       setCurrentSections([]);
@@ -104,12 +134,12 @@ function Home() {
       return true;
     } else if (
       utilityCommands.some(
-        (utilityCommand) => utilityCommand.command == cmd && cmd == "help",
+        (utilityCommand) => utilityCommand.command === cmd && cmd === "help"
       )
     ) {
       setLogs((prevLogs) => [
         ...prevLogs,
-        { id: crypto.randomUUID(), type: "info", text: `${command}` },
+        { id: crypto.randomUUID(), type: "info", text: `${command}` }
       ]);
 
       setTimeout(() => {
@@ -118,24 +148,24 @@ function Home() {
           {
             id: crypto.randomUUID(),
             type: "help",
-            text: `sh: available modules : ${sectionsCommands.map((sectionCommand) => sectionCommand.command).join(", ")}`,
-          },
+            text: `sh: available modules : ${sectionsCommands.map((sectionCommand) => sectionCommand.command).join(", ")}`
+          }
         ]);
         setLogs((prevLogs) => [
           ...prevLogs,
           {
             id: crypto.randomUUID(),
             type: "help",
-            text: "sh: navigation: cd <module_name>",
-          },
+            text: "sh: navigation: cd <module_name>"
+          }
         ]);
         setLogs((prevLogs) => [
           ...prevLogs,
           {
             id: crypto.randomUUID(),
             type: "help",
-            text: "sh: reset terminal: clear",
-          },
+            text: "sh: reset terminal: clear"
+          }
         ]);
       }, 300);
       return false;
@@ -149,8 +179,8 @@ function Home() {
           {
             id: crypto.randomUUID(),
             type: "error",
-            text: `cd: no such file or directory: ${targetSection}`,
-          },
+            text: `cd: no such file or directory: ${targetSection}`
+          }
         ]);
         setTimeout(() => {
           setLogs((prev) => [
@@ -158,8 +188,8 @@ function Home() {
             {
               id: crypto.randomUUID(),
               type: "help",
-              text: `sys: [notice] load the module first by typing its name.`,
-            },
+              text: `sys: [notice] load the module first by typing its name.`
+            }
           ]);
         }, 200);
         return false;
@@ -170,7 +200,7 @@ function Home() {
 
       setLogs((prev) => [
         ...prev,
-        { id: crypto.randomUUID(), type: "info", text: `${command}` },
+        { id: crypto.randomUUID(), type: "info", text: `${command}` }
       ]);
 
       setTimeout(() => {
@@ -179,8 +209,8 @@ function Home() {
           {
             id: crypto.randomUUID(),
             type: "success",
-            text: `fs: successfully changed directory to ~/${targetSection}`,
-          },
+            text: `fs: successfully changed directory to ~/${targetSection}`
+          }
         ]);
       }, 200);
       return true;
@@ -193,7 +223,7 @@ function Home() {
         });
         setLogs((prev) => [
           ...prev,
-          { id: crypto.randomUUID(), type: "info", text: `${command}` },
+          { id: crypto.randomUUID(), type: "info", text: `${command}` }
         ]);
         setTimeout(() => {
           setLogs((prev) => [
@@ -201,8 +231,8 @@ function Home() {
             {
               id: crypto.randomUUID(),
               type: "success",
-              text: `fs: returned to root directory (~/home)`,
-            },
+              text: `fs: returned to root directory (~/home)`
+            }
           ]);
         }, 200);
         return true;
@@ -213,8 +243,8 @@ function Home() {
           {
             id: crypto.randomUUID(),
             type: "error",
-            text: `cd: home module is not loaded yet`,
-          },
+            text: `cd: home module is not loaded yet`
+          }
         ]);
         return false;
       }
@@ -225,8 +255,8 @@ function Home() {
         {
           id: crypto.randomUUID(),
           type: "error",
-          text: `bash: ${cmd}: command not found`,
-        },
+          text: `bash: ${cmd}: command not found`
+        }
       ]);
       return false;
     }
