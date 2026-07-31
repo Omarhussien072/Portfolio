@@ -141,7 +141,7 @@ function Terminal({Directory, logs, onCommandExecute}: TerminalProps){
                             </div>
 
                             {/* System Logs Window */}
-                            <div className="flex flex-col flex-1 min-h-[4rem]">
+                            <div className="flex flex-col flex-1 min-h-16">
                                 <span className="text-[0.65rem] text-muted-foreground uppercase tracking-widest font-semibold mb-1.5">System Logs</span>
                                 <div ref={logsContainerRef} className="flex flex-col overflow-y-auto max-h-36 gap-1 pr-1 font-mono text-[0.65rem] bg-background/70 p-2.5 rounded border border-border/60">
                                     {logs.length === 0 ? (

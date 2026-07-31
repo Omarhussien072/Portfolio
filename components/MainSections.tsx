@@ -24,7 +24,7 @@ function MainSections({currentSections}: MainSectionsProps){
     return(
         <div className="flex flex-1 flex-col gap-4 justify-start items-center grow pb-32 pt-10">
             {currentSections.length === 0 ? (<SectionPlaceholder systemTitle={"system ready · v1.0.0"} helperTitle={"use the bar below to load sections"}/>)
-            : (currentSections.map((section, index) => {
+            : (currentSections.map((section) => {
                 return <div key={section} className="animate-fade-in-up w-full flex justify-center">
                     {sectionRegistery[section]}
                 </div>
