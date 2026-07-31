@@ -52,7 +52,7 @@ export const aboutCards:aboutCard[]= [
 ]
 
 export const techSkills: string[] = [
-  'html', 'css', 'js', 'react', 'tailwind', 'typeScript', 'node.js', 'python'
+  'html', 'css', 'js', 'tailwind', 'react', 'typeScript', 'node.js', 'python'
 ]
 
 interface projectDataType{
